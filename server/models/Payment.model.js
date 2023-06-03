@@ -4,6 +4,6 @@ const paymentSchema = new Schema({
 
 }, { timestamps: true })
 
-const PaymentModel = mongoose.model("category", paymentSchema);
+const PaymentModel = mongoose.model("payment", paymentSchema);
 
 module.exports = PaymentModel
