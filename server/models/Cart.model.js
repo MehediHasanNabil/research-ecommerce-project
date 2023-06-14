@@ -6,9 +6,9 @@ const cartSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "user"
     },
-    product_id: {
+    cart_item_id: {
         type: Schema.Types.ObjectId,
-        ref: "product"
+        ref: "cart_item"
     },
     created_at: {
         type: Date,
