@@ -86,7 +86,7 @@ async function login(req, res, next) {
 
 
     } catch (error) {
-
+        next(error)
     }
 }
 
@@ -102,7 +102,7 @@ async function createNewUser(req, res, next) {
         if (!existingUser?.email) {
             const hashedPassword = await bcrypt.hash(password, 10);
 
-            const newUser = UserModel({
+            const newUser = new UserModel({
                 username, email, password: hashedPassword
             })
 

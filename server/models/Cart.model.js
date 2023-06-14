@@ -1,6 +1,6 @@
 const { Schema, default: mongoose } = require("mongoose");
 
-const reviewSchema = new Schema({
+const cartSchema = new Schema({
     _id: Schema.Types.ObjectId,
     user_id: {
         type: Schema.Types.ObjectId,
@@ -10,20 +10,12 @@ const reviewSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "product"
     },
-    rating: {
-        type: Number,
-        required: true
-    },
-    comment: {
-        type: String,
-        required: true
-    },
     created_at: {
         type: Date,
         default: Date.now,
     }
 }, { timestamps: true });
 
-const ReviewModel = mongoose.model("review", reviewSchema);
+const CartModel = mongoose.model("cart", cartSchema);
 
-module.exports = ReviewModel
+module.exports = CartModel

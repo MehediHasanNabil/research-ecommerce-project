@@ -9,24 +9,21 @@ const productSchema = new Schema({
         type: String,
         required: true
     },
-
-
-
-
-
-
-
+    price: {
+        type: Number,
+        required: true
+    },
+    quantity: {
+        type: Number,
+        required: true
+    },
     active: {
         type: Boolean,
-        default: true
+        default: false
     },
     category_id: {
         type: [Schema.Types.ObjectId],
         ref: "category",
-    },
-    discount_id: {
-        type: [Schema.Types.ObjectId],
-        ref: "discount",
     },
     review_id: {
         type: [Schema.Types.ObjectId],

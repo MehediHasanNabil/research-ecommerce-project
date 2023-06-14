@@ -1,7 +1,8 @@
 const { Schema, default: mongoose } = require("mongoose");
 
 const discountSchema = new Schema({
-    name: {
+    _id: Schema.Types.ObjectId,
+    title: {
         type: String,
         required: true
     },

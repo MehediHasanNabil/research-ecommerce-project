@@ -1,6 +1,6 @@
-const mongoose = require("mongoose")
+const { Schema, default: mongoose } = require("mongoose");
 
-const userSchema = mongoose.Schema({
+const userSchema = new Schema({
     username: {
         type: String,
         required: true
@@ -25,14 +25,14 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    verified: {
-        type: Boolean,
-        default: false
-    },
     role: {
         type: String,
         default: "user"
     },
+    cart_id: {
+        type: Schema.Types.ObjectId,
+        ref: "cart"
+    }
 }, { timestamps: true });
 
 const UserModel = mongoose.model("user", userSchema);

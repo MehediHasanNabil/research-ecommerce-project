@@ -7,10 +7,10 @@ const mongoose = require("mongoose");
 
 const app = express();
 
-const ServiceRouter = require("./routes/Service.routes");
+// const ServiceRouter = require("./routes/Service.routes");
 const UserRouter = require("./routes/User.routes");
 const errorHandler = require("./middlewares/errorHandler");
-const sendMail = require("./utility/sendEmail");
+const sendMessageToEmail = require("./utility/sendMessageToEmail");
 
 const port = 4000 || process.env.PORT;
 
@@ -32,25 +32,28 @@ mongoose
   .then(() => console.log(chalk.green("Database connection successful!")))
   .catch((err) => console.log(chalk.red(err)));
 
+// app.use(sendMail)
 
 // all routes
 app.use("/api/user", UserRouter);
-app.use("/api/service", ServiceRouter);
 
-app.get("/", (req, res) => {
-  res.send("Hello World")
+app.get("/", async (req, res) => {
+  const result = await sendMessageToEmail('mehedihasannabil49@gmail.com', 'Sending Email using Node.js', "That was easy")
+  console.log(result)
+  res.json(result)
 })
 
-app.get("/mail", sendMail)
+// app.post("/mail", sendMail)
 
 app.use(errorHandler)
+
 
 
 app.listen(port, () => {
   console.log()
   console.log(chalk.yellow('/'))
   console.log(chalk.yellow('/mail'))
-  console.log(chalk.yellow('/api/service'))
+  // console.log(chalk.yellow('/api/service'))
   console.log(chalk.yellow('/api/user'))
   console.log()
   console.log(`Server is running on http://localhost:${port}`);

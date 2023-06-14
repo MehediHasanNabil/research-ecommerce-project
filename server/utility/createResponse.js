@@ -1,12 +1,12 @@
-function createResponse(success, payload) {
-    if (success) {
+function createResponse(status, payload) {
+    if (status) {
         return {
-            success,
+            status,
             payload: typeof payload === "object" ? payload : {}
         }
     } else {
         return {
-            success,
+            status,
             error: {
                 message: typeof payload === "string" ? payload : "Oops! An Error Occurred"
             }

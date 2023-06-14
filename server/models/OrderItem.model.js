@@ -1,29 +1,25 @@
 const { Schema, default: mongoose } = require("mongoose");
 
-const reviewSchema = new Schema({
+const orderSchema = new Schema({
     _id: Schema.Types.ObjectId,
-    user_id: {
+    order_id: {
         type: Schema.Types.ObjectId,
-        ref: "user"
+        ref: "order"
     },
     product_id: {
         type: Schema.Types.ObjectId,
         ref: "product"
     },
-    rating: {
+    quantity: {
         type: Number,
         required: true
     },
-    comment: {
-        type: String,
+    total_price: {
+        type: Number,
         required: true
-    },
-    created_at: {
-        type: Date,
-        default: Date.now,
     }
 }, { timestamps: true });
 
-const ReviewModel = mongoose.model("review", reviewSchema);
+const OrderModel = mongoose.model("order_item", orderSchema);
 
-module.exports = ReviewModel
+module.exports = OrderModel
