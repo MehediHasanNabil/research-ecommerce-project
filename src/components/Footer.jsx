@@ -1,4 +1,5 @@
 import { Footer } from "flowbite-react";
+import logo from "../assets/logo.png"
 
 
 export default function WebFooter() {
@@ -9,9 +10,8 @@ export default function WebFooter() {
           <div>
             <Footer.Brand
               href="/"
-              src="https://flowbite.com/docs/images/logo.svg"
-              alt="Flowbite Logo"
-              name="Flowbite"
+              src={logo}
+              alt="Logo"
             />
           </div>
           <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">

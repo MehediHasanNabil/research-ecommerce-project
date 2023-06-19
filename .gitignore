@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 
+live_site.txt
+
 server/node_modules
 server/.env
 

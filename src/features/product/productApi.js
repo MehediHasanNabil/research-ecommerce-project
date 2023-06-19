@@ -3,10 +3,10 @@ import { apiSlice } from '../api/apiSlice';
 export const conversationsApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getProducts: builder.query({
-            query: () => `/products`,
+            query: () => `/product`,
         }),
         getProduct: builder.query({
-            query: (productId) => `/products/${productId}`
+            query: (productId) => `/product/${productId}`
         })
     }),
 });

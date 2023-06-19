@@ -12,7 +12,9 @@ const app = express();
 const CartRouter = require("./routes/Cart.routes");
 const CategoryRoute = require("./routes/Category.routes");
 const UserRouter = require("./routes/User.routes");
+const TrafficDeviceRoute = require("./routes/TrafficDevice.routes");
 const ProductRouter = require("./routes/Product.routes");
+
 const errorHandler = require("./middlewares/errorHandler");
 const verifyToken = require("./middlewares/verifyJwtToken");
 // const sendMessageToEmail = require("./utility/sendMessageToEmail");
@@ -46,6 +48,7 @@ app.use("/api/auth", UserRouter);
 app.use("/api/cart", CartRouter);
 app.use("/api/category", CategoryRoute);
 app.use("/api/product", verifyToken, ProductRouter);
+app.use("/api/traffic-device", TrafficDeviceRoute);
 
 app.get("/", verifyToken, async (req, res) => {
   // const result = await sendMessageToEmail('mehedihasannabil49@gmail.com', 'Sending Email using Node.js', "That was easy")
@@ -67,8 +70,7 @@ app.listen(port, () => {
   console.log(chalk.yellow('/api/category'))
   console.log(chalk.yellow('/api/product'))
   console.log(chalk.yellow('/api/cart'))
-  // console.log(chalk.yellow('/api/service'))
+  console.log(chalk.yellow('/api/traffic-device'))
   console.log()
   console.log(`Server is running on http://localhost:${port}`);
-  console.log()
 });
