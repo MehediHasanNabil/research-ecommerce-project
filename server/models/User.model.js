@@ -1,7 +1,7 @@
 const { Schema, default: mongoose } = require("mongoose");
 
 const userSchema = new Schema({
-    username: {
+    displayName: {
         type: String,
         required: true
     },
@@ -9,29 +9,20 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    password: {
-        type: String,
-        required: true
-    },
-    profile: {
+    photoURL: {
         type: String,
         default: ""
     },
-    phone: {
+    phoneNumber: {
         type: String,
-        required: true
     },
     gender: {
         type: String,
-        required: true
+        default: ""
     },
     role: {
         type: String,
         default: "user"
-    },
-    cart_id: {
-        type: Schema.Types.ObjectId,
-        ref: "cart"
     }
 }, { timestamps: true });
 

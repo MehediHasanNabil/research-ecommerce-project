@@ -1,7 +1,7 @@
 const { Schema, default: mongoose } = require("mongoose");
 
 const cartItemSchema = new Schema({
-   _id: Schema.Types.ObjectId,
+   // _id: Schema.Types.ObjectId,
    cart_id: {
       type: Schema.Types.ObjectId,
       ref: "cart"

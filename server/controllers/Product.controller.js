@@ -56,6 +56,10 @@ async function deleteProduct(req, res, next) {
     try {
         const { productId } = req.params || {};
         await ProductModel.deleteOne({ _id: new ObjectId(productId) })
+        res.status(200).json(createResponse(true, {
+            message: "Product delete successfully",
+            productId
+        }))
     } catch (error) {
         next(error)
     }

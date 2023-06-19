@@ -93,17 +93,15 @@ async function login(req, res, next) {
 // create new user
 async function createNewUser(req, res, next) {
     try {
-        const { username, email, password } = req.body || {};
+        const { displayName, email, phoneNumber, photoURL } = req.body || {};
 
         const existingUser = await UserModel.findOne({
             email
         })
 
         if (!existingUser?.email) {
-            const hashedPassword = await bcrypt.hash(password, 10);
-
             const newUser = new UserModel({
-                username, email, password: hashedPassword
+                displayName, email, phoneNumber, photoURL
             })
 
             await newUser.save()
@@ -114,9 +112,8 @@ async function createNewUser(req, res, next) {
             res.status(409).json(createResponse(false, "User email already exists!"))
         }
 
-
     } catch (error) {
-        // console.log(error)
+        console.log(error)
         next(error)
     }
 }

@@ -3,19 +3,24 @@ const bodyParser = require("body-parser");
 const morgan = require('morgan')
 const helmet = require("helmet");
 const chalk = require('chalk');
+const cors = require('cors')
 const mongoose = require("mongoose");
 
 // express app
 const app = express();
 
 const CartRouter = require("./routes/Cart.routes");
+const CategoryRoute = require("./routes/Category.routes");
 const UserRouter = require("./routes/User.routes");
 const ProductRouter = require("./routes/Product.routes");
 const errorHandler = require("./middlewares/errorHandler");
+const verifyToken = require("./middlewares/verifyJwtToken");
 // const sendMessageToEmail = require("./utility/sendMessageToEmail");
 
 const port = 4000 || process.env.PORT;
 
+// Enable CORS 
+app.use(cors())
 require("dotenv").config();
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
@@ -37,11 +42,12 @@ mongoose
 // app.use(sendMail)
 
 // all routes
-app.use("/api/user", UserRouter);
+app.use("/api/auth", UserRouter);
 app.use("/api/cart", CartRouter);
-app.use("/api/product", ProductRouter);
+app.use("/api/category", CategoryRoute);
+app.use("/api/product", verifyToken, ProductRouter);
 
-app.get("/", async (req, res) => {
+app.get("/", verifyToken, async (req, res) => {
   // const result = await sendMessageToEmail('mehedihasannabil49@gmail.com', 'Sending Email using Node.js', "That was easy")
   // console.log(result)
   res.json({
@@ -58,6 +64,7 @@ app.listen(port, () => {
   console.log()
   console.log(chalk.yellow('/'))
   console.log(chalk.yellow('/api/user'))
+  console.log(chalk.yellow('/api/category'))
   console.log(chalk.yellow('/api/product'))
   console.log(chalk.yellow('/api/cart'))
   // console.log(chalk.yellow('/api/service'))

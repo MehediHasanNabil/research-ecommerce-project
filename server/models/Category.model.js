@@ -1,7 +1,6 @@
 const { Schema, default: mongoose } = require("mongoose");
 
 const categorySchema = new Schema({
-    _id: Schema.Types.ObjectId,
     name: {
         type: String,
         required: true

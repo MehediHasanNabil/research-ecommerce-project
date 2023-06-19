@@ -1,24 +1,22 @@
-
-const jwt = require('jsonwebtoken');
+const admin = require('../firebase/firebase');
 
 async function verifyToken(req, res, next) {
-    const token = req.headers.authorization;
+    const appCheckToken = req.headers["x-firebase-appcheck"];
 
-    if (!token) {
-        return res.status(401).json({ message: 'No token provided' });
+    if (!appCheckToken) {
+        res.status(401);
+        return next("Unauthorized");
     }
 
     try {
-        const decoded = await jwt.verify(token, process.env.JWT_SECRET);
-
-        req.user = decoded;
-
+        const decodedToken = await admin.auth().verifyIdToken(appCheckToken);
+        console.log(decodedToken)
+        req.user = decodedToken;
         next();
     } catch (error) {
         console.log(error)
         next(error)
     }
 }
-
 
 module.exports = verifyToken
