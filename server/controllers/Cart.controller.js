@@ -5,7 +5,25 @@ const Format = require('response-format');
 
 async function getCarts(req, res, next) {
     try {
-        const carts = await CartModel.find({}).populate(["user", "cart_item"])
+        // const carts = await CartModel.find({}).populate(["user", "cart_item"])
+        const carts = await CartModel.find({}).populate([
+            {
+                path: "user",
+                model: "user"
+            },
+            {
+                path: "cart_item",
+                model: "cart_item",
+                populate: {
+                    path: "product",
+                    model: "product",
+                    populate: {
+                        path: "category",
+                        model: "category",
+                    }
+                }
+            }
+        ])
         res.status(200).json(carts)
     } catch (error) {
         next(error)

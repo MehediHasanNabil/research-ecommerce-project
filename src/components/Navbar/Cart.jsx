@@ -1,4 +1,6 @@
-export default function Cart() {
+import PropTypes from "prop-types";
+
+export default function Cart({ totalProduct }) {
   return (
     <div className="mx-2">
       <button
@@ -20,9 +22,13 @@ export default function Cart() {
           />
         </svg>
         <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-1 -right-1 dark:border-gray-900">
-          20
+          {totalProduct?.length}
         </div>
       </button>
     </div>
   );
 }
+
+Cart.propTypes = {
+  totalProduct: PropTypes.array.isRequired,
+};

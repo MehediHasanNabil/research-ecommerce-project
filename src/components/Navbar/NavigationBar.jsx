@@ -11,15 +11,27 @@ import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { switchUserRole } from "../../features/auth/authSlice";
 import { useGetCartsQuery } from "../../features/cart/cartApi";
+import { useEffect, useState } from "react";
 
 export default function NavigationBar() {
   const dispatch = useDispatch();
   const user = useFirebaseAuth();
 
+  const [totalProduct, setTotalProduct] = useState([]);
+
   const { isSuccess: isSuccessFetchCarts, data: carts } = useGetCartsQuery();
 
   const auth = getAuth(app);
   const { role } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isSuccessFetchCarts) {
+      const totalItem = carts?.filter(
+        (cart) => cart.user?.email === user?.email
+      );
+      setTotalProduct(totalItem);
+    }
+  }, [isSuccessFetchCarts, carts, user]);
 
   function changeUserRole() {
     dispatch(switchUserRole(role === "buyer" ? "seller" : "buyer"));
@@ -54,10 +66,10 @@ export default function NavigationBar() {
         {user?.displayName ? (
           <>
             {/* cart */}
-            <Dropdown arrowIcon={false} inline={true} label={<Cart />}>
+            <Dropdown arrowIcon={false} inline={true} label={<Cart totalProduct={totalProduct} />}>
               <Dropdown.Header>
                 <div className="flex">
-                  <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">
+                  <h3 className="font-semibold text-gray-600 text-xs uppercase w-3/5">
                     Product Details
                   </h3>
                   <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5">
@@ -66,14 +78,11 @@ export default function NavigationBar() {
                   <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5">
                     Price
                   </h3>
-                  <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5">
-                    Total
-                  </h3>
                 </div>
               </Dropdown.Header>
               <div className="bg-slate-100 h-80 overflow-y-auto">
-                {isSuccessFetchCarts && carts?.length > 0 ? (
-                  carts.map((cart) => (
+                {totalProduct?.length > 0 ? (
+                  totalProduct?.map((cart) => (
                     <CartProduct key={cart._id} cart={cart} />
                   ))
                 ) : (
