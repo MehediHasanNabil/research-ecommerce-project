@@ -5,7 +5,7 @@ const createResponse = require("../utility/createResponse");
 
 async function getProducts(req, res, next) {
     try {
-        const products = await ProductModel.find({})
+        const products = await ProductModel.find({}).populate(['category', "user"]).exec()
         res.status(200).json(products)
     } catch (error) {
         next(error)
@@ -24,10 +24,10 @@ async function getProduct(req, res, next) {
 
 async function addProduct(req, res, next) {
     try {
-        const { title, price, quantity, category_id, long_description, short_description, images, thumbnail } = req.body
+        const { title, price, quantity, category, long_description, short_description, images, thumbnail } = req.body
 
         const newProduct = new ProductModel({
-            title, price, quantity, category_id, long_description, short_description, images, thumbnail
+            title, price, quantity, category, long_description, short_description, images, thumbnail
         })
 
         await newProduct.save()

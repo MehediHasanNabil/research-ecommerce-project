@@ -30,7 +30,7 @@ async function addCategory(req, res, next) {
 
         await newCategory.save()
 
-        res.json(Format.success(`${name} category add successful`), newCategory)
+        res.json(Format.success(`${name} category add successful`, newCategory))
     } catch (error) {
         console.log(error)
         next(error)

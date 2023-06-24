@@ -3,9 +3,15 @@ import { userLoggedIn } from "./authSlice";
 
 export const authApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
+        getUsers: builder.query({
+            query: () => `/auth`,
+        }),
+        getUserByEmail: builder.query({
+            query: (email) => `/auth/${email}`,
+        }),
         register: builder.mutation({
             query: (data) => ({
-                url: "/api/auth/register",
+                url: "/auth/register",
                 method: "POST",
                 body: data,
             }),
@@ -65,4 +71,4 @@ export const authApi = apiSlice.injectEndpoints({
     }),
 });
 
-export const { useLoginMutation, useRegisterMutation } = authApi;
+export const { useGetUsersQuery, useGetUserByEmailQuery, useLoginMutation, useRegisterMutation } = authApi;

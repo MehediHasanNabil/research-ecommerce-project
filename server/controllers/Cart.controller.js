@@ -1,9 +1,11 @@
 const CartModel = require("../models/Cart.model");
 const CartItemModel = require("../models/CartItem.model");
+const UserModel = require("../models/User.model");
+const Format = require('response-format');
 
 async function getCarts(req, res, next) {
     try {
-        const carts = await CartModel.find({})
+        const carts = await CartModel.find({}).populate(["user", "cart_item"])
         res.status(200).json(carts)
     } catch (error) {
         next(error)
@@ -22,25 +24,28 @@ async function getCart(req, res, next) {
 
 async function addCart(req, res, next) {
     try {
-        const { product_id, quantity } = req.body
-        const { _id } = req.user
+        const { product_id, email } = req.body
+
+        const user = await UserModel.findOne({ email })
 
         const newCartItem = new CartItemModel({
-            user_id: _id,
-            product_id,
-            quantity
+            product: product_id,
+            quantity: 1
         })
 
         await newCartItem.save()
 
         const newCart = new CartModel({
-            user_id: _id,
-            cart_item_id: newCartItem._id
+            user: user._id,
+            cart_item: newCartItem._id
         })
 
         await newCart.save()
 
+        res.status(201).json(Format.success("Product add successful.", newCart))
+
     } catch (error) {
+        console.log(error)
         next(error)
     }
 }

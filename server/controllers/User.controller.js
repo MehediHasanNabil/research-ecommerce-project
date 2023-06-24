@@ -21,9 +21,9 @@ async function getUsers(req, res, next) {
 // get user by user id
 async function getUser(req, res, next) {
     try {
-        const { userId } = req.params || {};
+        const { email } = req.params || {};
 
-        const user = await UserModel.findById(userId);
+        const user = await UserModel.findOne({ email });
 
         res.status(200).json(user);
 

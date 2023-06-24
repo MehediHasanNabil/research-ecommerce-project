@@ -1,11 +1,11 @@
 const { Schema, default: mongoose } = require("mongoose");
 
 const cartSchema = new Schema({
-    user_id: {
+    user: {
         type: Schema.Types.ObjectId,
         ref: "user"
     },
-    cart_item_id: {
+    cart_item: {
         type: Schema.Types.ObjectId,
         ref: "cart_item"
     },

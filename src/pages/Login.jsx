@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { getAuth } from "firebase/auth";
@@ -8,18 +8,10 @@ import { useRegisterMutation } from "../features/auth/authApi";
 import { toast } from "react-hot-toast";
 
 export default function Registration() {
-  const [createNewUser, { isSuccess, data: registerResponse }] =
-    useRegisterMutation();
+  const navigate = useNavigate();
 
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
-
-  useEffect(() => {
-    if (isSuccess) {
-      console.log(registerResponse);
-      toast.success("Signup successfully!");
-    }
-  }, [isSuccess, registerResponse]);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,8 +26,9 @@ export default function Registration() {
         // const token = credential.accessToken;
         // The signed-in user info.
         console.log(user);
-        const { displayName, email, phoneNumber, photoURL } = user;
-        createNewUser({ displayName, email, phoneNumber, photoURL });
+        // const { displayName, email, phoneNumber, photoURL } = user;
+        navigate("/");
+        toast.success("Signup successfully!");
       })
       .catch((error) => {
         console.log(error);
@@ -51,7 +44,7 @@ export default function Registration() {
           </Link>
         </div>
         <h3 className="mb-4 text-2xl font-medium text-gray-900 dark:text-white">
-          Sign up to your account
+          Sign In to your account
         </h3>
         <form onSubmit={(e) => handleSubmit(e)} className="space-y-6">
           <div>

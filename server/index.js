@@ -47,7 +47,7 @@ mongoose
 app.use("/api/auth", UserRouter);
 app.use("/api/cart", CartRouter);
 app.use("/api/category", CategoryRoute);
-app.use("/api/product", verifyToken, ProductRouter);
+app.use("/api/product", ProductRouter);
 app.use("/api/traffic-device", TrafficDeviceRoute);
 
 app.get("/", verifyToken, async (req, res) => {

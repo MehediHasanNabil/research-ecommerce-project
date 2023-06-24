@@ -1,7 +1,4 @@
 import { Dropdown, Navbar } from "flowbite-react";
-import Cart from "./Cart";
-import Search from "./Search";
-import CartProduct from "./CartProduct";
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
@@ -10,14 +7,11 @@ import { toast } from "react-hot-toast";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { switchUserRole } from "../../features/auth/authSlice";
-import { useGetCartsQuery } from "../../features/cart/cartApi";
 
-export default function NavigationBar() {
+
+export default function AdminNavbar() {
   const dispatch = useDispatch();
   const user = useFirebaseAuth();
-
-  const { isSuccess: isSuccessFetchCarts, data: carts } = useGetCartsQuery();
-
   const auth = getAuth(app);
   const { role } = useSelector((state) => state.auth);
 
@@ -39,48 +33,18 @@ export default function NavigationBar() {
 
   return (
     <Navbar
-      className="container sticky top-0 z-50 bg-slate-100/90 backdrop-filter backdrop-blur-xl"
+      className="hidden md:block container shadow sticky top-0 z-50 bg-slate-100/90 backdrop-filter backdrop-blur-xl"
       fluid={true}
     >
-      <Navbar.Brand href="/">
+      <Link to="/" className="flex items-center">
         <img src={logo} className="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
           ecommerce
         </span>
-      </Navbar.Brand>
+      </Link>
       <div className="flex justify-end items-center md:w-1/2 md:order-2">
-        <Search />
-
         {user?.displayName ? (
           <>
-            {/* cart */}
-            <Dropdown arrowIcon={false} inline={true} label={<Cart />}>
-              <Dropdown.Header>
-                <div className="flex">
-                  <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">
-                    Product Details
-                  </h3>
-                  <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5">
-                    Quantity
-                  </h3>
-                  <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5">
-                    Price
-                  </h3>
-                  <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5">
-                    Total
-                  </h3>
-                </div>
-              </Dropdown.Header>
-              <div className="bg-slate-100 h-80 overflow-y-auto">
-                {isSuccessFetchCarts && carts?.length > 0 ? (
-                  carts.map((cart) => (
-                    <CartProduct key={cart._id} cart={cart} />
-                  ))
-                ) : (
-                  <h2>Cart is empty</h2>
-                )}
-              </div>
-            </Dropdown>
             {/* profile */}
             <Dropdown
               arrowIcon={false}
@@ -120,15 +84,6 @@ export default function NavigationBar() {
 
         <Navbar.Toggle />
       </div>
-      <Navbar.Collapse>
-        <Navbar.Link href="/navbars" active={true}>
-          Home
-        </Navbar.Link>
-        <Navbar.Link href="/navbars">About</Navbar.Link>
-        <Navbar.Link href="/navbars">Services</Navbar.Link>
-        <Navbar.Link href="/navbars">Pricing</Navbar.Link>
-        <Navbar.Link href="/navbars">Contact</Navbar.Link>
-      </Navbar.Collapse>
     </Navbar>
   );
 }

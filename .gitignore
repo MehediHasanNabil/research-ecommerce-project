@@ -16,6 +16,8 @@ live_site.txt
 
 server/node_modules
 server/.env
+server/firebase
+firebase
 
 # Editor directories and files
 .vscode/*

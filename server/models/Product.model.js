@@ -28,12 +28,20 @@ const productSchema = new Schema({
     long_description: {
         type: String,
     },
-    location: {
-        type: String,
-        required: true
+    rating: {
+        type: Number,
+        default: 0
     },
-    category_id: {
-        type: [Schema.Types.ObjectId],
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "user"
+    },
+    // review: {
+    //     type: [Schema.Types.ObjectId],
+    //     ref: "review"
+    // },
+    category: {
+        type: Schema.Types.ObjectId,
         ref: "category",
     }
 }, { timestamps: true });

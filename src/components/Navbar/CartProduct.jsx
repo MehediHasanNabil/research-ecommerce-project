@@ -1,6 +1,5 @@
-
-
-export default function CartProduct() {
+export default function CartProduct({ cart }) {
+  console.log(cart);
   return (
     <div className="flex items-center bg-transparent hover:bg-gray-200 px-6 py-5">
       <div className="flex w-2/5">

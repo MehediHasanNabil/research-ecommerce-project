@@ -1,9 +1,10 @@
-import AdminLayout from "../../components/Layout/AdminLayout";
+import DashboardLayout from "../../components/Layout/DashboardLayout";
+
 
 export default function Dashboard() {
   return (
-    <AdminLayout>
-      <div className="w-full">
+    <DashboardLayout>
+      <div>
         <h2 className="text-xl font-bold">Analytics Overview</h2>
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-3 p-5 rounded-md shadow hover:shadow-lg">
@@ -16,6 +17,6 @@ export default function Dashboard() {
           <div className="col-span-3 p-5 rounded-md shadow hover:shadow-lg">2</div>
         </div>
       </div>
-    </AdminLayout>
+    </DashboardLayout>
   );
 }

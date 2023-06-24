@@ -2,7 +2,7 @@ const admin = require('../firebase/firebase');
 
 async function verifyToken(req, res, next) {
     const appCheckToken = req.headers["x-firebase-appcheck"];
-
+console.log(appCheckToken)
     if (!appCheckToken) {
         res.status(401);
         return next("Unauthorized");
