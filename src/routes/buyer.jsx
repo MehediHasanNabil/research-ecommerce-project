@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import BuyerHome from "../pages/Buyer/BuyerHome";
 import ProductDetails from "../pages/Buyer/ProductDetails";
+import CartPage from "../pages/Buyer/CartPage";
 
 const buyerRouter = createBrowserRouter([
   {
@@ -21,7 +22,7 @@ const buyerRouter = createBrowserRouter([
   },
   {
     path: "/cart",
-    element: "",
+    element: <CartPage />,
   },
   {
     path: "/place-order",
