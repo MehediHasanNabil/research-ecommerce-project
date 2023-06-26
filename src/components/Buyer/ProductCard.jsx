@@ -1,29 +1,10 @@
-import { Button, Rating } from "flowbite-react";
+import { Rating } from "flowbite-react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import { toast } from "react-hot-toast";
-import useFirebaseAuth from "../../hooks/useFirebaseAuth";
-import { useAddToCartMutation } from "../../features/cart/cartApi";
+import AddToCartButton from "./AddToCartButton";
 
 export default function ProductCard({ product }) {
-  const user = useFirebaseAuth();
-  const [addProductToCart, { isSuccess: isSuccessAddProductToCart }] =
-    useAddToCartMutation();
   const { _id, title, price, thumbnail } = product || {};
-
-  useEffect(() => {
-    if (isSuccessAddProductToCart) {
-      toast.success("Product add successfully!");
-    }
-  }, [isSuccessAddProductToCart]);
-
-  function handleAddToCart(product_id) {
-    addProductToCart({
-      product_id,
-      email: user.email,
-    });
-  }
 
   return (
     <div className="shadow p-4 rounded-md flex flex-col justify-between transition-all hover:scale-110 hover:shadow-xl">
@@ -46,9 +27,7 @@ export default function ProductCard({ product }) {
 
       <div className="flex justify-between py-3">
         <p className="text-2xl font-semibold">$ {price}</p>
-        <Button onClick={() => handleAddToCart(_id)} size="xs">
-          Add to cart
-        </Button>
+        <AddToCartButton size="xs" product={product} />
       </div>
     </div>
   );

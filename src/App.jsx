@@ -1,59 +1,17 @@
 import "flowbite";
-import "./App.css"
-import Home from "./pages/Home";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ErrorPage from "./pages/ErrorPage";
-import ProductDetails from "./pages/ProductDetails";
-import AddProduct from "./pages/admin/AddProduct";
-import Dashboard from "./pages/admin/Dashboard";
-import Login from "./pages/Login";
-import Registration from "./pages/Registration";
+import "./App.css";
+import { RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import Products from "./pages/admin/Products";
-import ProductCategory from "./pages/admin/ProductCategory";
+import adminRouter from "./routes/admin";
+import sellerRouter from "./routes/seller";
+import buyerRouter from "./routes/buyer";
+import { useState } from "react";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/product-details/:productId",
-    element: <ProductDetails />,
-  },
-  {
-    path: "/admin",
-    children: [
-      {
-        path: "",
-        element: <Dashboard />,
-      },
-      {
-        path: "add-product",
-        element: <AddProduct />,
-      },
-      {
-        path: "products",
-        element: <Products />,
-      },
-      {
-        path: "product-category",
-        element: <ProductCategory/>
-      }
-    ],
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/registration",
-    element: <Registration />,
-  },
-]);
 
 export default function App() {
+  // const [router, setrouter] = useState(adminRouter);
+  // const [router, setrouter] = useState(sellerRouter);
+  const [router, setrouter] = useState(buyerRouter);
   return (
     <>
       <RouterProvider router={router} />

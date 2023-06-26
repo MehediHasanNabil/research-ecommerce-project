@@ -1,16 +1,52 @@
 import PropTypes from "prop-types";
+import {
+  useIncrementAndDecrementCartMutation,
+  useRemoveProductFromCartMutation,
+} from "../../../features/cart/cartApi";
+import { useEffect } from "react";
+import { toast } from "react-hot-toast";
 
-export default function CartProduct({ cart }) {
+export default function CartItem({ cart }) {
+  const { _id } = cart || {};
+  const { _id: cartItemId } = cart?.cart_item || {};
   const { title, thumbnail, category, price } = cart?.cart_item?.product || {};
 
-  function handleRemoveToCart() {}
+  console.log(cart?.cart_item)
+
+  const [removeProductFromCart, { isSuccess: isSuccessRemoveProductFromCart }] =
+    useRemoveProductFromCartMutation();
+
+  const [
+    incrementAndDecrementCart,
+    { isSuccess: isSuccessIncrementAndDecrementCart },
+  ] = useIncrementAndDecrementCartMutation();
+
+  useEffect(() => {
+    if (isSuccessRemoveProductFromCart) {
+      toast.success("Remove from cart.");
+    }
+  }, [isSuccessRemoveProductFromCart]);
+
+  useEffect(() => {
+    if (isSuccessIncrementAndDecrementCart) {
+      toast.success("Product count increment.");
+    }
+  }, [isSuccessIncrementAndDecrementCart]);
+
+  function handleRemoveToCart(cartId) {
+    if (cartId) {
+      removeProductFromCart({ cartId, cartItemId });
+    }
+  }
 
   function increaseProductCount() {
-    alert("increaseProductCount")
+    incrementAndDecrementCart({
+      type: "increment",
+    });
   }
 
   function decreaseProductCount() {
-    alert("decreaseProductCount")
+    alert("decreaseProductCount");
   }
 
   return (
@@ -23,7 +59,7 @@ export default function CartProduct({ cart }) {
           <span className="font-bold text-sm">{title}</span>
           <span className="text-red-500 text-xs">{category?.name}</span>
           <button
-            onClick={handleRemoveToCart}
+            onClick={() => handleRemoveToCart(_id)}
             className="font-semibold hover:text-red-500 text-gray-500 text-xs"
           >
             Remove
@@ -54,6 +90,6 @@ export default function CartProduct({ cart }) {
   );
 }
 
-CartProduct.propTypes = {
+CartItem.propTypes = {
   cart: PropTypes.object.isRequired,
 };

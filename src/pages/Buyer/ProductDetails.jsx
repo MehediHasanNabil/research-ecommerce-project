@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
-import Layout from "../components/Layout/Layout";
 import { useParams } from "react-router-dom";
-import { useGetProductQuery } from "../features/product/productApi";
+import Layout from "../../components/Layout/BuyerLayout";
+import { useGetProductQuery } from "../../features/product/productApi";
+import AddToCartButton from "../../components/Buyer/AddToCartButton";
 
 export default function ProductDetails() {
   const { productId } = useParams() || {};
@@ -43,12 +43,11 @@ export default function ProductDetails() {
             <p className="text-xl font-semibold">Quantity: {quantity}</p>
           </div>
           <p className="text-lg font-medium">Category: {category}</p>
+          <div>
+            <AddToCartButton size="md" product={product} />
+          </div>
         </div>
       </div>
     </Layout>
   );
 }
-
-ProductDetails.propTypes = {
-  //   params: PropTypes.object.isRequired,
-};

@@ -1,16 +1,16 @@
 import { Dropdown, Navbar } from "flowbite-react";
 import Cart from "./Cart";
 import Search from "./Search";
-import CartProduct from "./CartProduct";
-import logo from "../../assets/logo.png";
-import { Link } from "react-router-dom";
+import CartItem from "./CartItem";
+import logo from "../../../assets/logo.png";
+import { Link, NavLink } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
-import { app } from "../../firebase/firebaseConfig";
+import { app } from "../../../firebase/firebaseConfig";
 import { toast } from "react-hot-toast";
-import useFirebaseAuth from "../../hooks/useFirebaseAuth";
+import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
 import { useDispatch, useSelector } from "react-redux";
-import { switchUserRole } from "../../features/auth/authSlice";
-import { useGetCartsQuery } from "../../features/cart/cartApi";
+import { switchUserRole } from "../../../features/auth/authSlice";
+import { useGetCartsQuery } from "../../../features/cart/cartApi";
 import { useEffect, useState } from "react";
 
 export default function NavigationBar() {
@@ -66,7 +66,11 @@ export default function NavigationBar() {
         {user?.displayName ? (
           <>
             {/* cart */}
-            <Dropdown arrowIcon={false} inline={true} label={<Cart totalProduct={totalProduct} />}>
+            <Dropdown
+              arrowIcon={false}
+              inline={true}
+              label={<Cart totalProduct={totalProduct} />}
+            >
               <Dropdown.Header>
                 <div className="flex">
                   <h3 className="font-semibold text-gray-600 text-xs uppercase w-3/5">
@@ -83,7 +87,7 @@ export default function NavigationBar() {
               <div className="bg-slate-100 h-80 overflow-y-auto">
                 {totalProduct?.length > 0 ? (
                   totalProduct?.map((cart) => (
-                    <CartProduct key={cart._id} cart={cart} />
+                    <CartItem key={cart._id} cart={cart} />
                   ))
                 ) : (
                   <h2>Cart is empty</h2>
@@ -130,13 +134,10 @@ export default function NavigationBar() {
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        <Navbar.Link href="/navbars" active={true}>
-          Home
-        </Navbar.Link>
-        <Navbar.Link href="/navbars">About</Navbar.Link>
-        <Navbar.Link href="/navbars">Services</Navbar.Link>
-        <Navbar.Link href="/navbars">Pricing</Navbar.Link>
-        <Navbar.Link href="/navbars">Contact</Navbar.Link>
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="/cart">Cart</NavLink>
+        <NavLink to="/order">Order</NavLink>
+        <NavLink to="/contact">Contact</NavLink>
       </Navbar.Collapse>
     </Navbar>
   );

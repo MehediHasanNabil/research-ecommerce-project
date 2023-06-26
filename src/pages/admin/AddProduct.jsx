@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import DashboardLayout from "../../components/Layout/DashboardLayout";
-import {
+import AdminLayout from "../../components/Layout/AdminLayout";
+import { 
   useAddProductMutation,
   useGetCategoriesQuery,
 } from "../../features/product/productApi";
@@ -59,7 +59,7 @@ export default function AddProduct() {
   }
 
   return (
-    <DashboardLayout>
+    <AdminLayout>
       <div>
         <h2 className="text-2xl font-semibold mb-4">Add New Product</h2>
         <form onSubmit={handleAddProduct}>
@@ -206,6 +206,6 @@ Product Category image url 3
           </button>
         </form>
       </div>
-    </DashboardLayout>
+    </AdminLayout>
   );
 }

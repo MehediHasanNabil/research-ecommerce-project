@@ -1,4 +1,4 @@
-import Layout from "../components/Layout/Layout";
+import Layout from "../components/Layout/BuyerLayout";
 import { useSelector } from "react-redux";
 import BuyerPage from "./BuyerPage";
 import SellingDashboard from "./SellingDashboard";

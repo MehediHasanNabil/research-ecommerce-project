@@ -1,8 +1,8 @@
-import Hero from "../components/Hero";
-import Categories from "../components/Categories";
-import SpecialOffer from "../components/SpecialOffer";
-import Products from "../components/Products/Products";
-import Layout from "../components/Layout/Layout";
+import Hero from "../components/Buyer/Hero";
+import Categories from "../components/Buyer/Categories";
+import SpecialOffer from "../components/Buyer/SpecialOffer";
+import Products from "../components/Buyer/Products";
+import Layout from "../components/Layout/BuyerLayout";
 
 export default function BuyerPage() {
   return (

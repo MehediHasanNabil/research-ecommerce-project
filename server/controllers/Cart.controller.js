@@ -33,7 +33,24 @@ async function getCarts(req, res, next) {
 async function getCart(req, res, next) {
     try {
         const { cartId } = req.params || {};
-        const cart = await CartModel.findById(cartId)
+        const cart = await CartModel.findById(cartId).populate([
+            {
+                path: "user",
+                model: "user"
+            },
+            {
+                path: "cart_item",
+                model: "cart_item",
+                populate: {
+                    path: "product",
+                    model: "product",
+                    populate: {
+                        path: "category",
+                        model: "category",
+                    }
+                }
+            }
+        ])
         res.status(200).json(cart)
     } catch (error) {
         next(error)
@@ -70,7 +87,10 @@ async function addCart(req, res, next) {
 
 async function updateCart(req, res, next) {
     try {
-        const { product_id, quantity } = req.body;
+        const { cartId } = req.params || {};
+        const { type } = req.body;
+
+        const cart = await CartModel.findById(cartId)
 
     } catch (error) {
         next(error)
@@ -80,8 +100,14 @@ async function updateCart(req, res, next) {
 async function deleteCart(req, res, next) {
     try {
         const { cartId } = req.params || {};
-        await CartModel.deleteOne({ _id: cartId })
+        const { cartItemId } = req.body
+
+        const cartResult = await CartModel.deleteOne({ _id: cartId })
+        await CartItemModel.deleteOne({ _id: cartItemId })
+
+        res.status(200).json(Format.success("Product remove successful.", cartResult))
     } catch (error) {
+        console.log(error)
         next(error)
     }
 }

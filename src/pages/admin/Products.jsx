@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import DashboardLayout from "../../components/Layout/DashboardLayout";
+import DashboardLayout from "../../components/Layout/AdminLayout";
 import { useGetProductsQuery } from "../../features/product/productApi";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 

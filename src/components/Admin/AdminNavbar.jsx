@@ -33,7 +33,7 @@ export default function AdminNavbar() {
 
   return (
     <Navbar
-      className="hidden md:block container shadow sticky top-0 z-50 bg-slate-100/90 backdrop-filter backdrop-blur-xl"
+      className="hidden md:block shadow sticky top-0 z-50 bg-slate-100/90 backdrop-filter backdrop-blur-xl"
       fluid={true}
     >
       <Link to="/" className="flex items-center">

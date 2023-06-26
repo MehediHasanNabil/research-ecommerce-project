@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
-import AdminSidebar from "../DashboardNavbar/AdminSidebar";
-import AdminNavbar from "../DashboardNavbar/AdminNavbar";
+import AdminSidebar from "../Admin/AdminSidebar";
+import AdminNavbar from "../Admin/AdminNavbar";
 
-export default function DashboardLayout({ children }) {
+export default function AdminLayout({ children }) {
   return (
     <>
       <AdminNavbar />
@@ -63,6 +63,6 @@ export default function DashboardLayout({ children }) {
   );
 }
 
-DashboardLayout.propTypes = {
+AdminLayout.propTypes = {
   children: PropTypes.element.isRequired,
 };

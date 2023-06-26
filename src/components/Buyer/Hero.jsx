@@ -1,4 +1,8 @@
 import { Carousel, Sidebar } from "flowbite-react";
+import banner1 from "../../assets/banner/banner 1.jpg";
+import banner2 from "../../assets/banner/banner 2.jpg";
+import banner3 from "../../assets/banner/banner 3.jpg";
+import banner4 from "../../assets/banner/banner 4.jpg";
 
 export default function Hero() {
   return (
@@ -29,30 +33,12 @@ export default function Hero() {
         <div className="col-span-12 md:col-span-10">
           <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
             <Carousel>
-              <img
-                src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
-                alt="..."
-              />
-              <img
-                src="https://flowbite.com/docs/images/carousel/carousel-2.svg"
-                alt="..."
-              />
-              <img
-                src="https://flowbite.com/docs/images/carousel/carousel-3.svg"
-                alt="..."
-              />
-              <img
-                src="https://flowbite.com/docs/images/carousel/carousel-4.svg"
-                alt="..."
-              />
-              <img
-                src="https://flowbite.com/docs/images/carousel/carousel-5.svg"
-                alt="..."
-              />
+              <img src={banner1} alt="..." />
+              <img src={banner2} alt="..." />
+              <img src={banner4} alt="..." />
+              <img src={banner3} alt="..." />
             </Carousel>
           </div>
-
-         
         </div>
       </div>
     </div>
