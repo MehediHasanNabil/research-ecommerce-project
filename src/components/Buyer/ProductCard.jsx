@@ -26,7 +26,7 @@ export default function ProductCard({ product }) {
       </div>
 
       <div className="flex justify-between py-3">
-        <p className="text-2xl font-semibold">$ {price}</p>
+        <p className="text-xl font-semibold">$ {price}</p>
         <AddToCartButton size="xs" product={product} />
       </div>
     </div>

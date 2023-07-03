@@ -59,7 +59,7 @@ export default function AddProduct() {
   }
 
   return (
-    <AdminLayout>
+    <>
       <div>
         <h2 className="text-2xl font-semibold mb-4">Add New Product</h2>
         <form onSubmit={handleAddProduct}>
@@ -206,6 +206,6 @@ Product Category image url 3
           </button>
         </form>
       </div>
-    </AdminLayout>
+    </>
   );
 }

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import Footer from "../Buyer/Footer";
+import Footer from "../Shared/Footer";
 import NavigationBar from "../Buyer/Navbar/NavigationBar";
 
 export default function BuyerLayout({ children }) {

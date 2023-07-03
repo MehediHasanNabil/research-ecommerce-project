@@ -162,12 +162,12 @@ export default function Registration() {
             Registration
           </button>
           <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-            Not registered?{"  "}
+            Already have an account.{"  "}
             <Link
-              to="/registration"
+              to="/login"
               className="text-indigo-700 hover:underline dark:text-indigo-500"
             >
-              Create account
+              Login
             </Link>
           </div>
         </form>

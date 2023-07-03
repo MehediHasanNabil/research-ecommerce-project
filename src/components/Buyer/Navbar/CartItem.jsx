@@ -11,7 +11,7 @@ export default function CartItem({ cart }) {
   const { _id: cartItemId } = cart?.cart_item || {};
   const { title, thumbnail, category, price } = cart?.cart_item?.product || {};
 
-  console.log(cart?.cart_item)
+  // console.log(cart?.cart_item)
 
   const [removeProductFromCart, { isSuccess: isSuccessRemoveProductFromCart }] =
     useRemoveProductFromCartMutation();

@@ -6,7 +6,7 @@ import CartItem from "../../components/Buyer/Navbar/CartItem";
 import CartItemLoader from "../Loader/CartItemLOader";
 
 export default function CartProductItems({ className }) {
-  const user = useFirebaseAuth();
+  const {user} = useFirebaseAuth();
   const [totalProduct, setTotalProduct] = useState([]);
 
   const {

@@ -68,7 +68,14 @@ export const authApi = apiSlice.injectEndpoints({
                 }
             },
         }),
+        updateInfo: builder.mutation({
+            query: (data) => ({
+                url: `/auth/edit-user/${data.email}`,
+                method: "PATCH",
+                body: data,
+            }),
+        }),
     }),
 });
 
-export const { useGetUsersQuery, useGetUserByEmailQuery, useLoginMutation, useRegisterMutation } = authApi;
+export const { useGetUsersQuery, useGetUserByEmailQuery, useLoginMutation, useRegisterMutation, useUpdateInfoMutation } = authApi;

@@ -5,7 +5,7 @@ import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
 import { useGetCartsQuery } from "../../../features/cart/cartApi";
 
 export default function Cart() {
-  const user = useFirebaseAuth();
+  const {user} = useFirebaseAuth();
 
   const [totalProduct, setTotalProduct] = useState([]);
 

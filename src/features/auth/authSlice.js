@@ -19,6 +19,7 @@ const authSlice = createSlice({
             state.user = undefined;
         },
         switchUserRole: (state, action) => {
+            localStorage.setItem("role", action.payload)
             state.role = action.payload
         }
     },

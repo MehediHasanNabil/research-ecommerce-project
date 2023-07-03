@@ -10,8 +10,8 @@ router.get("/", getUsers);
 router.get("/:email", getUser);
 router.post("/login", login);
 router.post("/register", createNewUser);
-router.patch("/edit-user/:userId", editUserInfo);
-router.patch("/change-profile/:userId", upload.single("profile"), changeProfile);
+router.patch("/edit-user/:email", editUserInfo);
+router.patch("/change-profile/:email", upload.single("profile"), changeProfile);
 // router.post("/", upload.single("profile"), imageUpload);
 
 module.exports = router;

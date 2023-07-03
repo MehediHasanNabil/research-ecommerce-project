@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { getAuth } from "firebase/auth";
 import { app } from "../firebase/firebaseConfig";
-import { useRegisterMutation } from "../features/auth/authApi";
+import { useRegisterMutation } from "../features/auth/authApi"; 
 import { toast } from "react-hot-toast";
 
-export default function Registration() {
+export default function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
 
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
@@ -27,8 +30,8 @@ export default function Registration() {
         // The signed-in user info.
         console.log(user);
         // const { displayName, email, phoneNumber, photoURL } = user;
-        navigate("/");
-        toast.success("Signup successfully!");
+        navigate(from, { replace: true });
+        toast.success("Login successfully!");
       })
       .catch((error) => {
         console.log(error);

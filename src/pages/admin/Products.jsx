@@ -4,7 +4,7 @@ import { useGetProductsQuery } from "../../features/product/productApi";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 
 export default function Products() {
-  const user = useFirebaseAuth();
+  const {user} = useFirebaseAuth();
   const { data: products, isSuccess: isSuccessFetchProducts } =
     useGetProductsQuery();
 

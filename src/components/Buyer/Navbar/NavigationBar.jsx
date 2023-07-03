@@ -7,24 +7,23 @@ import { getAuth, signOut } from "firebase/auth";
 import { app } from "../../../firebase/firebaseConfig";
 import { toast } from "react-hot-toast";
 import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
-import { useDispatch, useSelector } from "react-redux";
-import { switchUserRole } from "../../../features/auth/authSlice";
+import { useDispatch } from "react-redux";
+import {
+  userLoggedOut,
+} from "../../../features/auth/authSlice";
+import SwitchMode from "../../Shared/SwitchMode";
 
 export default function NavigationBar() {
   const dispatch = useDispatch();
-  const user = useFirebaseAuth();
+  const { user } = useFirebaseAuth();
 
   const auth = getAuth(app);
-  const { role } = useSelector((state) => state.auth);
-
-  function changeUserRole() {
-    dispatch(switchUserRole(role === "buyer" ? "seller" : "buyer"));
-  }
 
   function accountSignOut() {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
+        dispatch(userLoggedOut());
         toast.success("SignOut successfully!");
       })
       .catch((error) => {
@@ -70,9 +69,7 @@ export default function NavigationBar() {
                 </span>
               </Dropdown.Header>
               <Dropdown.Item>Dashboard</Dropdown.Item>
-              <Dropdown.Item className="border-2" onClick={changeUserRole}>
-                Switch to {role === "buyer" ? "Selling" : "Buying"}
-              </Dropdown.Item>
+              <SwitchMode />
               <Dropdown.Item>Settings</Dropdown.Item>
               <Dropdown.Item>Earnings</Dropdown.Item>
               <Dropdown.Divider />

@@ -1,7 +1,6 @@
-import React from 'react'
+import React from "react";
+import SellerLayout from "../../components/Layout/SellerLayout";
 
 export default function SellerHome() {
-  return (
-    <div>SellerHome</div>
-  )
+  return <SellerLayout>SellerHome</SellerLayout>;
 }

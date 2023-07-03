@@ -1,5 +1,6 @@
 const CartModel = require("../models/Cart.model");
 const CartItemModel = require("../models/CartItem.model");
+const ProductModel = require("../models/Product.model");
 const UserModel = require("../models/User.model");
 const Format = require('response-format');
 
@@ -62,10 +63,12 @@ async function addCart(req, res, next) {
         const { product_id, email } = req.body
 
         const user = await UserModel.findOne({ email })
+        const product = await ProductModel.findById(product_id)
 
         const newCartItem = new CartItemModel({
             product: product_id,
-            quantity: 1
+            quantity: 1,
+            price: product.price
         })
 
         await newCartItem.save()

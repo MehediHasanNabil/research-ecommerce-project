@@ -6,7 +6,7 @@ import banner4 from "../../assets/banner/banner 4.jpg";
 
 export default function Hero() {
   return (
-    <div className="container">
+    <>
       <div className="grid grid-cols-12">
         <aside className="hidden md:block col-span-12 md:col-span-2">
           <div className="w-full md:w-fit h-56 sm:h-64 xl:h-80 2xl:h-96 overflow-y-auto">
@@ -41,6 +41,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

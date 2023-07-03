@@ -5,17 +5,36 @@ import { Toaster } from "react-hot-toast";
 import adminRouter from "./routes/admin";
 import sellerRouter from "./routes/seller";
 import buyerRouter from "./routes/buyer";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import useFirebaseAuth from "./hooks/useFirebaseAuth";
+import Loader from "./components/Loader/Loader";
+import { useSelector } from "react-redux";
 
 export default function App() {
-  // const [router, setrouter] = useState(adminRouter);
-  // const [router, setrouter] = useState(sellerRouter);
-  const [router, setrouter] = useState(buyerRouter);
+  const { loading } = useFirebaseAuth();
+  const { role } = useSelector((state) => state.auth);
+  const [router, setRouter] = useState(buyerRouter);
+
+  useEffect(() => {
+    if (role === "seller") {
+      setRouter(sellerRouter);
+    } else {
+      setRouter(buyerRouter);
+    }
+  }, [role]);
+
+  // setRouter(adminRouter)
+
   return (
     <>
-      <RouterProvider router={router} />
-      <Toaster position="top-center" reverseOrder={false} />
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <RouterProvider router={router} />
+          <Toaster position="top-center" reverseOrder={false} />
+        </>
+      )}
     </>
   );
 }

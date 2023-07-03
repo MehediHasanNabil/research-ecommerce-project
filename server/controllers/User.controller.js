@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const UserModel = require("../models/User.model");
-const { check } = require('express-validator');
+const Format = require('response-format');
 const createResponse = require('../utility/createResponse');
 
 
@@ -121,19 +121,20 @@ async function createNewUser(req, res, next) {
 // change user information
 async function editUserInfo(req, res, next) {
     try {
-        const { userId } = req.params || {};
+        const { email } = req.params || {};
 
-        const { username, phone, verified, gender, profile, role } = req.body || {};
+        // const { username, phone, verified, gender, profile, role } = req.body || {};
 
-        const user = await UserModel.findById(userId);
+        const user = await UserModel.findOne({ email });
 
         if (user) {
-            const updateDocument = await UserModel.findByIdAndUpdate({ _id: userId }, { username, phone, verified, gender, profile, role }, { new: true });
-            res.status(201).json(createResponse(true, updateDocument))
+            const updateDocument = await UserModel.updateOne({ email }, req.body, { new: true });
+            res.status(201).json(Format.success("User info update successful.", updateDocument))
         } else {
-            res.status(404).json(createResponse(false, "User is not found"))
+            res.status(404).json(Format.error("User is not found"))
         }
     } catch (error) {
+        console.log(error)
         next(error)
     }
 }

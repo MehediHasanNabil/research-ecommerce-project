@@ -8,20 +8,14 @@ export default function Products() {
 
   if (isSuccess && products?.length > 0) {
     content = products.map((product) => (
-      <ProductCard key={product.id} product={product} />
+      <ProductCard key={product._id} product={product} />
     ));
   }
-
-  isSuccess && console.log(products);
 
   return (
     <div>
       <h2 className="text-4xl font-bold my-8">All Products</h2>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        {content}
-        {content}
-        {content}
-      </div>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">{content}</div>
     </div>
   );
 }
