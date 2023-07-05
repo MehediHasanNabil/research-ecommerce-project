@@ -4,14 +4,22 @@ const cartSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
         ref: "user"
-    },
-    cart_item: {
+    }, 
+    product: {
         type: Schema.Types.ObjectId,
-        ref: "cart_item"
+        ref: "product"
     },
     created_at: {
         type: Date,
         default: Date.now,
+    },
+    quantity: {
+        type: Number,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
     }
 }, { timestamps: true });
 

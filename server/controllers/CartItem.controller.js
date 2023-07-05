@@ -4,7 +4,7 @@ const ProductModel = require("../models/Product.model");
 
 async function getCartItems(req, res, next) {
     try {
-        const cart_items = await CartItemModel.find({}).populate("product")
+        const cart_items = await CartItemModel.find({}).populate(["product"])
         res.status(200).json(cart_items)
     } catch (error) {
         next(error)
@@ -19,7 +19,7 @@ async function getCartItem(req, res, next) {
     } catch (error) {
         next(error)
     }
-}
+} 
 
 async function updateCartItem(req, res, next) {
     try {

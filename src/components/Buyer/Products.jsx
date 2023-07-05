@@ -1,8 +1,12 @@
+import { useSelector } from "react-redux";
 import { useGetProductsQuery } from "../../features/product/productApi";
 import ProductCard from "./ProductCard";
 
 export default function Products() {
+  const { user } = useSelector((state) => state.auth);
   const { isSuccess, data: products } = useGetProductsQuery();
+
+  console.log(user)
 
   let content;
 

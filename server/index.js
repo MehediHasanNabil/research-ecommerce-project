@@ -10,7 +10,6 @@ const mongoose = require("mongoose");
 const app = express();
 
 const CartRouter = require("./routes/Cart.routes");
-const CartItemRouter = require("./routes/CartItem.routes");
 const CategoryRoute = require("./routes/Category.routes");
 const UserRouter = require("./routes/User.routes");
 const TrafficDeviceRoute = require("./routes/TrafficDevice.routes");
@@ -47,7 +46,6 @@ mongoose
 // all routes
 app.use("/api/auth", UserRouter);
 app.use("/api/cart", CartRouter);
-app.use("/api/cartitem", CartItemRouter);
 app.use("/api/category", CategoryRoute);
 app.use("/api/product", ProductRouter);
 app.use("/api/traffic-device", TrafficDeviceRoute);
@@ -72,7 +70,6 @@ app.listen(port, () => {
   console.log(chalk.yellow('/api/category'))
   console.log(chalk.yellow('/api/product'))
   console.log(chalk.yellow('/api/cart'))
-  console.log(chalk.yellow('/api/cartitem'))
   console.log(chalk.yellow('/api/traffic-device'))
   console.log()
   console.log(`Server is running on http://localhost:${port}`);

@@ -5,7 +5,7 @@ const createResponse = require("../utility/createResponse");
 
 async function getProducts(req, res, next) {
     try {
-        const products = await ProductModel.find({}).populate(['category', "user"]).exec()
+        const products = await ProductModel.find({}).populate(['category', "user"])
         res.status(200).json(products)
     } catch (error) {
         next(error)
@@ -15,7 +15,7 @@ async function getProducts(req, res, next) {
 async function getProduct(req, res, next) {
     try {
         const { productId } = req.params || {};
-        const product = await ProductModel.findById(productId)
+        const product = await ProductModel.findById(productId).populate(['category', "user"])
         res.status(200).json(product)
     } catch (error) {
         next(error)

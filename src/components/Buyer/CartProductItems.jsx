@@ -13,6 +13,7 @@ export default function CartProductItems({ className }) {
     isSuccess: isSuccessFetchCarts,
     data: carts,
     isLoading,
+    isSuccess,
   } = useGetCartsQuery();
 
   useEffect(() => {
@@ -32,11 +33,11 @@ export default function CartProductItems({ className }) {
     <div
       className={`${
         className ? className : ""
-      } bg-slate-100 w-96 overflow-y-auto ${
+      } bg-slate-100 w-[32rem] overflow-y-auto ${
         totalProduct.length === 0 ? "" : "h-80"
       }`}
     >
-      {totalProduct?.length > 0 ? (
+      {totalProduct?.length > 0 && isSuccess ? (
         totalProduct?.map((cart) => <CartItem key={cart._id} cart={cart} />)
       ) : (
         <h2 className="text-center py-4 text-xl">Cart is empty</h2>

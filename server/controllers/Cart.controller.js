@@ -1,28 +1,26 @@
 const CartModel = require("../models/Cart.model");
-const CartItemModel = require("../models/CartItem.model");
 const ProductModel = require("../models/Product.model");
 const UserModel = require("../models/User.model");
 const Format = require('response-format');
 
 async function getCarts(req, res, next) {
     try {
-        // const carts = await CartModel.find({}).populate(["user", "cart_item"])
+        // const carts = await CartModel.find({}).populate(["user", "product"])
         const carts = await CartModel.find({}).populate([
             {
                 path: "user",
                 model: "user"
             },
             {
-                path: "cart_item",
-                model: "cart_item",
-                populate: {
-                    path: "product",
-                    model: "product",
-                    populate: {
-                        path: "category",
-                        model: "category",
-                    }
-                }
+                path: "product",
+                model: "product",
+                populate: [{
+                    path: "user",
+                    model: "user",
+                }, {
+                    path: "category",
+                    model: "category",
+                }]
             }
         ])
         res.status(200).json(carts)
@@ -34,24 +32,25 @@ async function getCarts(req, res, next) {
 async function getCart(req, res, next) {
     try {
         const { cartId } = req.params || {};
-        const cart = await CartModel.findById(cartId).populate([
-            {
-                path: "user",
-                model: "user"
-            },
-            {
-                path: "cart_item",
-                model: "cart_item",
-                populate: {
-                    path: "product",
-                    model: "product",
-                    populate: {
-                        path: "category",
-                        model: "category",
-                    }
-                }
-            }
-        ])
+        // const cart = await CartModel.findById(cartId).populate([
+        //     {
+        //         path: "user",
+        //         model: "user"
+        //     },
+        //     {
+        //         path: "cart_item",
+        //         model: "cart_item",
+        //         populate: {
+        //             path: "product",
+        //             model: "product",
+        //             populate: {
+        //                 path: "category",
+        //                 model: "category",
+        //             }
+        //         }
+        //     }
+        // ])
+        const cart = await CartModel.findById(cartId).populate(["user", "product"])
         res.status(200).json(cart)
     } catch (error) {
         next(error)
@@ -65,20 +64,20 @@ async function addCart(req, res, next) {
         const user = await UserModel.findOne({ email })
         const product = await ProductModel.findById(product_id)
 
-        const newCartItem = new CartItemModel({
+        const newCart = new CartModel({
+            user: user._id,
             product: product_id,
             quantity: 1,
             price: product.price
         })
 
-        await newCartItem.save()
-
-        const newCart = new CartModel({
-            user: user._id,
-            cart_item: newCartItem._id
-        })
-
         await newCart.save()
+
+        await ProductModel.findByIdAndUpdate(product_id, {
+            $set: {
+                quantity: product.quantity - 1
+            }
+        })
 
         res.status(201).json(Format.success("Product add successful.", newCart))
 
@@ -88,25 +87,66 @@ async function addCart(req, res, next) {
     }
 }
 
-async function updateCart(req, res, next) {
+async function updateProductQuantity(req, res, next) {
     try {
         const { cartId } = req.params || {};
-        const { type } = req.body;
-
+        const { type } = req.body
         const cart = await CartModel.findById(cartId)
+        const product = await ProductModel.findById(cart.product)
 
+        let cartQuantity = cart.quantity
+        let productQuantity = product.quantity
+
+        if (type === "increase") {
+            if (0 <= product.quantity - 1) {
+                cartQuantity = cart.quantity + 1
+                await ProductModel.findByIdAndUpdate(product._id, {
+                    $set: {
+                        quantity: productQuantity - 1
+                    }
+                })
+            }
+        }
+
+        if (type === "decrease") {
+            if (cart.quantity - 1 >= 0) {
+                cartQuantity = cart.quantity - 1
+                await ProductModel.findByIdAndUpdate(product._id, {
+                    $set: {
+                        quantity: productQuantity + 1
+                    }
+                })
+            }
+        }
+
+        await CartModel.findByIdAndUpdate(cartId, {
+            $set: {
+                quantity: cartQuantity
+            }
+        })
+
+        res.status(200).json(Format.success("Product quantity update successful.", { productQuantity, cartQuantity }))
     } catch (error) {
         next(error)
     }
 }
 
+
 async function deleteCart(req, res, next) {
     try {
         const { cartId } = req.params || {};
-        const { cartItemId } = req.body
+        const { quantity } = req.body
+
+        const cart = await CartModel.findById(cartId)
+        const product = await ProductModel.findById(cart.product)
+
+        await ProductModel.findByIdAndUpdate(cart.product, {
+            $set: {
+                quantity: product.quantity + quantity
+            }
+        })
 
         const cartResult = await CartModel.deleteOne({ _id: cartId })
-        await CartItemModel.deleteOne({ _id: cartItemId })
 
         res.status(200).json(Format.success("Product remove successful.", cartResult))
     } catch (error) {
@@ -120,6 +160,6 @@ module.exports = {
     getCarts,
     getCart,
     addCart,
-    updateCart,
+    updateProductQuantity,
     deleteCart
 }

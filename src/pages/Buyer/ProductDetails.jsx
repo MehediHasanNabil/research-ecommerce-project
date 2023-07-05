@@ -24,7 +24,7 @@ export default function ProductDetails() {
 
   return (
     <Layout>
-      <div className="container grid grid-cols-12 gap-4 items-center">
+      <div className="container grid grid-cols-12 gap-6">
         <div className="col-span-4">
           <img src={thumbnail} alt={title} />
           <div className="flex gap-4 mt-8">
@@ -34,7 +34,7 @@ export default function ProductDetails() {
               ))}
           </div>
         </div>
-        <div className="col-span-8 flex flex-col gap-4">
+        <div className="col-span-8 flex flex-col gap-4 mt-6">
           <h2 className="font-bold text-2xl">{title}</h2>
           <p className="text-lg">{short_description}</p>
           <p className="text-lg">{long_description}</p>
@@ -42,7 +42,9 @@ export default function ProductDetails() {
             <p className="text-3xl font-semibold">Price: $ {price}</p>
             <p className="text-xl font-semibold">Quantity: {quantity}</p>
           </div>
-          <p className="text-lg font-medium">Category: {category}</p>
+          {category?.name && (
+            <p className="text-lg font-medium capitalize">Category: {category.name}</p>
+          )}
           <div>
             <AddToCartButton size="md" product={product} />
           </div>

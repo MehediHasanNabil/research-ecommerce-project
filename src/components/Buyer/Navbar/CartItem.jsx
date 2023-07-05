@@ -1,25 +1,25 @@
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import {
-  useIncrementAndDecrementCartMutation,
   useRemoveProductFromCartMutation,
+  useUpdateProductQuantityMutation,
 } from "../../../features/cart/cartApi";
-import { useEffect } from "react";
 import { toast } from "react-hot-toast";
 
 export default function CartItem({ cart }) {
   const { _id } = cart || {};
-  const { _id: cartItemId } = cart?.cart_item || {};
-  const { title, thumbnail, category, price } = cart?.cart_item?.product || {};
+  const { title, thumbnail, category, price } = cart?.product || {};
 
-  // console.log(cart?.cart_item)
-
+  // remove product
   const [removeProductFromCart, { isSuccess: isSuccessRemoveProductFromCart }] =
     useRemoveProductFromCartMutation();
 
+  // increment or decrease product
   const [
-    incrementAndDecrementCart,
-    { isSuccess: isSuccessIncrementAndDecrementCart },
-  ] = useIncrementAndDecrementCartMutation();
+    updateProductQuantity,
+    { isSuccess: isSuccessUpdateProductQuantity, data: updateProductResponse },
+  ] = useUpdateProductQuantityMutation();
+
 
   useEffect(() => {
     if (isSuccessRemoveProductFromCart) {
@@ -28,25 +28,29 @@ export default function CartItem({ cart }) {
   }, [isSuccessRemoveProductFromCart]);
 
   useEffect(() => {
-    if (isSuccessIncrementAndDecrementCart) {
-      toast.success("Product count increment.");
+    if (isSuccessUpdateProductQuantity) {
+      toast.success(updateProductResponse.message);
     }
-  }, [isSuccessIncrementAndDecrementCart]);
+  }, [isSuccessUpdateProductQuantity, updateProductResponse]);
 
   function handleRemoveToCart(cartId) {
     if (cartId) {
-      removeProductFromCart({ cartId, cartItemId });
+      removeProductFromCart({ cartId, quantity: cart.quantity });
     }
   }
 
   function increaseProductCount() {
-    incrementAndDecrementCart({
-      type: "increment",
+    updateProductQuantity({
+      type: "increase",
+      cartId: _id,
     });
   }
 
   function decreaseProductCount() {
-    alert("decreaseProductCount");
+    updateProductQuantity({
+      type: "decrease",
+      cartId: _id,
+    });
   }
 
   return (
@@ -73,11 +77,9 @@ export default function CartItem({ cart }) {
           </svg>
         </button>
 
-        <input
-          className="mx-2 border text-center w-12"
-          type="text"
-          defaultValue={cart?.cart_item?.quantity}
-        />
+        <div className="mx-2 p-2 border-2 text-center w-12">
+          {cart.quantity}
+        </div>
 
         <button onClick={increaseProductCount}>
           <svg className="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
@@ -92,4 +94,5 @@ export default function CartItem({ cart }) {
 
 CartItem.propTypes = {
   cart: PropTypes.object.isRequired,
+  refetch: PropTypes.func,
 };
