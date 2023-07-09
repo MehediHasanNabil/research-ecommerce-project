@@ -1,6 +1,6 @@
 import { Footer } from "flowbite-react";
-import logo from "../../assets/logo.png"
-
+import logo from "../../assets/logo.png";
+import { Link } from "react-router-dom";
 
 export default function WebFooter() {
   return (
@@ -8,11 +8,9 @@ export default function WebFooter() {
       <div className="w-full">
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
           <div>
-            <Footer.Brand
-              href="/"
-              src={logo}
-              alt="Logo"
-            />
+            <Link to="/">
+              <img src={logo} alt="Logo" className="h-16" />
+            </Link>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
             <div>

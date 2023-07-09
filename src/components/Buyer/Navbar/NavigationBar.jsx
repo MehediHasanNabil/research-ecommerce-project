@@ -8,9 +8,7 @@ import { app } from "../../../firebase/firebaseConfig";
 import { toast } from "react-hot-toast";
 import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
 import { useDispatch } from "react-redux";
-import {
-  userLoggedOut,
-} from "../../../features/auth/authSlice";
+import { userLoggedOut } from "../../../features/auth/authSlice";
 import SwitchMode from "../../Shared/SwitchMode";
 
 export default function NavigationBar() {
@@ -38,10 +36,10 @@ export default function NavigationBar() {
       fluid={true}
     >
       <Link className="flex items-center" to="/">
-        <img src={logo} className="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+        <img src={logo} className="mr-3 h-16" alt=" Logo" />
+        {/* <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
           ecommerce
-        </span>
+        </span> */}
       </Link>
       <div className="flex justify-end items-center md:w-1/2 md:order-2">
         <Search />
@@ -69,7 +67,7 @@ export default function NavigationBar() {
                 </span>
               </Dropdown.Header>
               <Dropdown.Item>Dashboard</Dropdown.Item>
-              <SwitchMode />
+              <SwitchMode mode="buyer" />
               <Dropdown.Item>Settings</Dropdown.Item>
               <Dropdown.Item>Earnings</Dropdown.Item>
               <Dropdown.Divider />

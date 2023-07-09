@@ -11,6 +11,7 @@ const app = express();
 
 const CartRouter = require("./routes/Cart.routes");
 const CategoryRoute = require("./routes/Category.routes");
+const OrderRouter = require("./routes/Order.routes");
 const UserRouter = require("./routes/User.routes");
 const TrafficDeviceRoute = require("./routes/TrafficDevice.routes");
 const ProductRouter = require("./routes/Product.routes");
@@ -31,8 +32,8 @@ app.use(bodyParser.json());
 app.use(morgan('tiny'))
 app.use(helmet())
 
-mongoose.set('strictQuery', false);
 // database connection
+mongoose.set('strictQuery', false);
 mongoose
   .connect(process.env.DB_CONNECTION, {
     useNewUrlParser: true,
@@ -48,6 +49,7 @@ app.use("/api/auth", UserRouter);
 app.use("/api/cart", CartRouter);
 app.use("/api/category", CategoryRoute);
 app.use("/api/product", ProductRouter);
+app.use("/api/order", OrderRouter);
 app.use("/api/traffic-device", TrafficDeviceRoute);
 
 app.get("/", verifyToken, async (req, res) => {
@@ -66,9 +68,10 @@ app.use(errorHandler)
 app.listen(port, () => {
   console.log()
   console.log(chalk.yellow('/'))
-  console.log(chalk.yellow('/api/user'))
+  console.log(chalk.yellow('/api/auth'))
   console.log(chalk.yellow('/api/category'))
   console.log(chalk.yellow('/api/product'))
+  console.log(chalk.yellow('/api/order'))
   console.log(chalk.yellow('/api/cart'))
   console.log(chalk.yellow('/api/traffic-device'))
   console.log()

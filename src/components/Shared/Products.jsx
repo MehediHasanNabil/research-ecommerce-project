@@ -38,11 +38,14 @@ export default function Products({ type }) {
     content = filterProducts?.map((product, index) => (
       <ProductItem key={product._id} index={index} product={product} />
     ));
-  } else if (isSuccessFetchProducts && data.length === 0) {
+  }
+  if (isSuccessFetchProducts && data?.length === 0) {
     content = <h2 className="text-lg">No Products here.</h2>;
-  } else if (isLoading) {
+  }
+  if (isLoading) {
     content = <Loader />;
-  } else if (isError) {
+  }
+  if (isError) {
     content = <Error message={error} />;
   } else {
     content = <h2 className="text-lg">Something was wrong.</h2>;
@@ -52,7 +55,7 @@ export default function Products({ type }) {
     <div className="pt-6">
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
               <th scope="col" className="px-6 py-3">
                 #

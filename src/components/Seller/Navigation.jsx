@@ -33,10 +33,7 @@ export default function Navigation() {
       fluid={true}
     >
       <Link to="/" className="flex items-center">
-        <img src={logo} className="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-          ecommerce
-        </span>
+        <img src={logo} className="mr-3 h-16" alt="Logo" />
       </Link>
       <div className="flex justify-end items-center md:w-1/2 md:order-2">
         {user?.displayName ? (
@@ -60,7 +57,7 @@ export default function Navigation() {
                 </span>
               </Dropdown.Header>
               <Dropdown.Item>Dashboard</Dropdown.Item>
-              <SwitchMode />
+              <SwitchMode mode="seller" />
               <Dropdown.Item>Earnings</Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item onClick={accountSignOut}>Sign out</Dropdown.Item>

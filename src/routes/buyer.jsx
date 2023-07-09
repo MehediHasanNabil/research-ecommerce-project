@@ -5,6 +5,8 @@ import CartPage from "../pages/Buyer/CartPage";
 import PrivateRoute from "../components/Buyer/PrivateRoute";
 import Login from "../pages/Login";
 import Registration from "../pages/Registration";
+import OrderPage from "../pages/Buyer/Order";
+import Payment from "../pages/Buyer/Payment";
 
 const buyerRouter = createBrowserRouter([
   {
@@ -32,6 +34,22 @@ const buyerRouter = createBrowserRouter([
     element: (
       <PrivateRoute>
         <CartPage />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/order",
+    element: (
+      <PrivateRoute>
+        <OrderPage />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/payment",
+    element: (
+      <PrivateRoute>
+        <Payment />
       </PrivateRoute>
     ),
   },

@@ -4,11 +4,15 @@ const states = ["processing", "shipped", "delivered"]
 
 const orderSchema = new Schema({
     // _id: Schema.Types.ObjectId,
-    user_id: {
+    user: {
         type: Schema.Types.ObjectId,
         ref: "user"
     },
-    total_amount: {
+    cart: {
+        type: [Schema.Types.ObjectId],
+        ref: "cart"
+    },
+    total_price: {
         type: Number,
         required: true
     },
