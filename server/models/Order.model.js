@@ -2,6 +2,17 @@ const { Schema, default: mongoose } = require("mongoose");
 
 const states = ["processing", "shipped", "delivered"]
 
+const productItem = new Schema({
+    product: {
+        type: Schema.Types.ObjectId,
+        ref: "product"
+    },
+    quantity: {
+        type: Number,
+        required: true
+    }
+});
+
 const orderSchema = new Schema({
     // _id: Schema.Types.ObjectId,
     user: {
@@ -12,6 +23,7 @@ const orderSchema = new Schema({
         type: [Schema.Types.ObjectId],
         ref: "cart"
     },
+    product: [productItem],
     total_price: {
         type: Number,
         required: true

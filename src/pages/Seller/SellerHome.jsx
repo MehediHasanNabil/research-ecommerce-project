@@ -1,4 +1,3 @@
-import React from "react";
 import SellerLayout from "../../components/Layout/SellerLayout";
 
 export default function SellerHome() {

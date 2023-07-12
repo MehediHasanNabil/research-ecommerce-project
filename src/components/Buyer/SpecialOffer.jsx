@@ -14,7 +14,7 @@ export default function SpecialOffer() {
       <p className="font-bold text-xl">
         Game Console Controller + USB 3.0 Cable
       </p>
-      <p className="font-bold text-2xl">$79,00</p>
+      <p className="font-bold text-2xl">৳ 79,00</p>
     </div>
   );
 }

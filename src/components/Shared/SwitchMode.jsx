@@ -6,7 +6,6 @@ import { switchUserRole } from "../../features/auth/authSlice";
 export default function SwitchMode({ mode }) {
   const dispatch = useDispatch();
   const { role } = useSelector((state) => state.auth);
-  console.log(mode);
 
   function changeUserRole() {
     // const localStorageRole = localStorage.getItem("role");
